@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LoanAI — AI-Powered Loan Eligibility Platform</title>
+  <meta name="description" content="Instantly check your loan eligibility, analyse your credit score, calculate EMI, and get AI-powered financial guidance — all in one smart platform." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* page-specific tweaks */
+    .particle { position: absolute; border-radius: 50%; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <div class="nav-logo-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <span>Loan<span class="text-gradient">AI</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a class="nav-link active" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="loan-eligibility.html">Eligibility</a></li>
+        <li><a class="nav-link" href="credit-score.html">Credit Score</a></li>
+        <li><a class="nav-link" href="emi-calculator.html">EMI Calculator</a></li>
+        <li><a class="nav-link" href="ai-tips.html">AI Tips</a></li>
+      </ul>
+      <a href="loan-eligibility.html" class="btn btn-primary nav-cta">
+        <i class="fa-solid fa-rocket"></i> Get Started
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a class="nav-link active" href="index.html">Home</a>
+  <a class="nav-link" href="loan-eligibility.html"><i class="fa-solid fa-check-circle"></i> Loan Eligibility</a>
+  <a class="nav-link" href="credit-score.html"><i class="fa-solid fa-star-half-stroke"></i> Credit Score</a>
+  <a class="nav-link" href="emi-calculator.html"><i class="fa-solid fa-calculator"></i> EMI Calculator</a>
+  <a class="nav-link" href="ai-tips.html"><i class="fa-solid fa-robot"></i> AI Financial Tips</a>
+</div>
+
+<!-- ── Hero ───────────────────────────────────────────────── -->
+<section class="hero">
+  <!-- Particles -->
+  <div id="particles" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero-grid">
+      <!-- Left -->
+      <div class="fade-in-up">
+        <div class="hero-badge">
+          <i class="fa-solid fa-microchip"></i> AI-Powered · BFSI Platform
+        </div>
+        <h1 class="hero-title">
+          Smart Loan Decisions<br/>
+          <span class="text-gradient">Powered by AI</span>
+        </h1>
+        <p class="hero-desc">
+          Get instant loan eligibility analysis, personalised credit evaluation, 
+          precise EMI planning, and intelligent financial guidance — all in one 
+          seamless platform.
+        </p>
+        <div class="hero-actions">
+          <a href="loan-eligibility.html" class="btn btn-primary btn-lg" id="hero-cta-primary">
+            <i class="fa-solid fa-rocket"></i> Check Eligibility
+          </a>
+          <a href="ai-tips.html" class="btn btn-outline btn-lg" id="hero-cta-secondary">
+            <i class="fa-solid fa-robot"></i> Ask AI
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num text-gradient">98%</div>
+            <div class="hero-stat-label">Accuracy</div>
+          </div>
+          <div>
+            <div class="hero-stat-num text-gradient-gold">5s</div>
+            <div class="hero-stat-label">Avg Analysis Time</div>
+          </div>
+          <div>
+            <div class="hero-stat-num text-gradient-cyan">50K+</div>
+            <div class="hero-stat-label">Users Served</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right — floating cards -->
+      <div class="hero-visual fade-in" style="animation-delay:.2s">
+        <!-- Main card -->
+        <div class="float-card float-card-main">
+          <div class="card-label">Loan Eligibility</div>
+          <div class="card-value text-gradient-cyan">₹24,00,000</div>
+          <div class="card-sub">Max eligible amount</div>
+          <div style="margin-top:1rem">
+            <div style="display:flex;justify-content:space-between;margin-bottom:.4rem">
+              <span style="font-size:.78rem;color:#64748b">Approval Score</span>
+              <span style="font-size:.78rem;font-weight:600;color:var(--clr-success)">87%</span>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" style="width:87%"></div>
+            </div>
+          </div>
+          <div style="margin-top:1rem;display:flex;gap:.5rem">
+            <span class="tag tag-success"><i class="fa-solid fa-circle-check"></i> Approved</span>
+            <span class="tag tag-blue">Low Risk</span>
+          </div>
+        </div>
+
+        <!-- Card 1: Credit Score -->
+        <div class="float-card float-card-1" style="padding:1.2rem;min-width:160px">
+          <div class="card-icon" style="font-size:1.2rem">⭐</div>
+          <div class="card-mini-label">Credit Score</div>
+          <div class="card-mini-value text-gradient-gold" style="font-size:1.4rem">780</div>
+          <span class="tag tag-success" style="margin-top:.5rem;font-size:.72rem">Excellent</span>
+        </div>
+
+        <!-- Card 2: EMI -->
+        <div class="float-card float-card-2" style="min-width:180px">
+          <div class="card-mini-label">Monthly EMI</div>
+          <div class="card-mini-value" style="font-size:1.5rem;margin:.35rem 0">
+            <span class="text-gradient">₹21,450</span>
+          </div>
+          <div style="font-size:.78rem;color:#64748b">for 5 yrs @ 8.5%</div>
+        </div>
+
+        <!-- Card 3: AI Tip -->
+        <div class="float-card float-card-3" style="min-width:160px">
+          <div style="font-size:1rem;margin-bottom:.5rem">🤖</div>
+          <div class="card-mini-label">AI Recommendation</div>
+          <div style="font-size:.8rem;color:#94a3b8;margin-top:.35rem;line-height:1.5">
+            Great profile! Consider a 7-yr tenure to reduce EMI burden.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats ──────────────────────────────────────────────── -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="stats-row fade-in-up">
+      <div class="stat-item">
+        <div class="stat-num text-gradient" id="counter-loans">0</div>
+        <div class="stat-label">Loans Analysed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num text-gradient-gold" id="counter-saved">0</div>
+        <div class="stat-label">Crores Disbursed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num text-gradient-cyan" id="counter-users">0</div>
+        <div class="stat-label">Happy Users</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" style="background:var(--grad-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent" id="counter-score">0</div>
+        <div class="stat-label">Avg Credit Score</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Features ───────────────────────────────────────────── -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-header text-center">
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Everything You Need for<br/><span class="text-gradient">Smart Financial Decisions</span></h2>
+      <p class="section-desc" style="margin:0 auto">Our AI-powered platform combines cutting-edge technology with financial expertise to deliver instant, accurate insights.</p>
+    </div>
+    <div class="features-grid">
+      <a href="loan-eligibility.html" class="glass-card feature-card fade-in-up fade-in-delay-1" id="feat-eligibility">
+        <div class="feature-icon feature-icon-blue"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+        <div class="feature-title">Loan Eligibility Checker</div>
+        <p class="feature-desc">Instantly check if you qualify for a loan using AI-powered rule-based validation. Get your eligible loan amount in seconds.</p>
+      </a>
+      <a href="credit-score.html" class="glass-card feature-card fade-in-up fade-in-delay-2" id="feat-credit">
+        <div class="feature-icon feature-icon-gold"><i class="fa-solid fa-star-half-stroke"></i></div>
+        <div class="feature-title">Credit Score Analyzer</div>
+        <p class="feature-desc">Understand your financial credibility. Get classified as Excellent, Good, or Poor with actionable improvement tips.</p>
+      </a>
+      <a href="emi-calculator.html" class="glass-card feature-card fade-in-up fade-in-delay-3" id="feat-emi">
+        <div class="feature-icon feature-icon-cyan"><i class="fa-solid fa-calculator"></i></div>
+        <div class="feature-title">EMI Calculator</div>
+        <p class="feature-desc">Plan your monthly repayments with precision using the standard reducing-balance EMI formula. Visualise your loan schedule.</p>
+      </a>
+      <a href="ai-tips.html" class="glass-card feature-card fade-in-up fade-in-delay-4" id="feat-ai">
+        <div class="feature-icon feature-icon-purple"><i class="fa-solid fa-robot"></i></div>
+        <div class="feature-title">AI Financial Advisor</div>
+        <p class="feature-desc">Chat with Claude AI for personalised loan recommendations, credit improvement advice, and tailored financial planning tips.</p>
+      </a>
+      <div class="glass-card feature-card fade-in-up" id="feat-sheets">
+        <div class="feature-icon feature-icon-green"><i class="fa-solid fa-database"></i></div>
+        <div class="feature-title">Cloud Data Storage</div>
+        <p class="feature-desc">Your eligibility results are securely saved to Google Sheets via Apps Script — serverless, reliable, and always accessible.</p>
+      </div>
+      <div class="glass-card feature-card fade-in-up" id="feat-responsive">
+        <div class="feature-icon feature-icon-red"><i class="fa-solid fa-mobile-screen"></i></div>
+        <div class="feature-title">Fully Responsive</div>
+        <p class="feature-desc">Optimised for desktop, tablet, and mobile. Enjoy a consistent premium fintech experience across all your devices.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header text-center">
+      <div class="section-label">Simple Process</div>
+      <h2 class="section-title">How <span class="text-gradient">LoanAI</span> Works</h2>
+    </div>
+    <div class="how-grid">
+      <div class="glass-card how-step fade-in-up fade-in-delay-1" id="step-1">
+        <div class="how-step-num">1</div>
+        <div class="how-step-title">Enter Your Details</div>
+        <p class="how-step-desc">Fill in your financial profile — salary, credit score, existing EMIs, and age.</p>
+      </div>
+      <div class="glass-card how-step fade-in-up fade-in-delay-2" id="step-2">
+        <div class="how-step-num">2</div>
+        <div class="how-step-title">AI Analyses</div>
+        <p class="how-step-desc">Our engine runs rule-based checks and AI reasoning to evaluate your profile instantly.</p>
+      </div>
+      <div class="glass-card how-step fade-in-up fade-in-delay-3" id="step-3">
+        <div class="how-step-num">3</div>
+        <div class="how-step-title">Get Your Results</div>
+        <p class="how-step-desc">Receive eligibility status, risk classification, eligible amount, and AI recommendations.</p>
+      </div>
+      <div class="glass-card how-step fade-in-up fade-in-delay-4" id="step-4">
+        <div class="how-step-num">4</div>
+        <div class="how-step-title">Plan & Apply</div>
+        <p class="how-step-desc">Use EMI calculator and AI advice to plan the perfect loan and apply with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ─────────────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card fade-in-up">
+      <h2 class="cta-title">Ready to Check Your<br/><span class="text-gradient">Loan Eligibility?</span></h2>
+      <p class="cta-desc">Join thousands of users who make smarter financial decisions with LoanAI.</p>
+      <div class="cta-actions">
+        <a href="loan-eligibility.html" class="btn btn-primary btn-lg" id="cta-main">
+          <i class="fa-solid fa-rocket"></i> Check Eligibility Now
+        </a>
+        <a href="ai-tips.html" class="btn btn-accent btn-lg" id="cta-ai">
+          <i class="fa-solid fa-robot"></i> Talk to AI Advisor
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="nav-logo" style="font-size:1.2rem">
+          <div class="nav-logo-icon" style="width:32px;height:32px;font-size:.9rem"><i class="fa-solid fa-chart-line"></i></div>
+          Loan<span class="text-gradient">AI</span>
+        </div>
+        <p class="footer-brand-desc">AI-powered BFSI platform making loan decisions smarter, faster, and more transparent for everyone.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Tools</div>
+        <div class="footer-links">
+          <a class="footer-link" href="loan-eligibility.html">Loan Eligibility</a>
+          <a class="footer-link" href="credit-score.html">Credit Score</a>
+          <a class="footer-link" href="emi-calculator.html">EMI Calculator</a>
+          <a class="footer-link" href="ai-tips.html">AI Financial Tips</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Resources</div>
+        <div class="footer-links">
+          <a class="footer-link" href="#">How It Works</a>
+          <a class="footer-link" href="#">FAQs</a>
+          <a class="footer-link" href="#">Privacy Policy</a>
+          <a class="footer-link" href="#">Terms of Use</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <div class="footer-links">
+          <a class="footer-link" href="#"><i class="fa-brands fa-github"></i> GitHub</a>
+          <a class="footer-link" href="#"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+          <a class="footer-link" href="#"><i class="fa-solid fa-envelope"></i> Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 LoanAI. Built with ❤️ and Claude AI.</span>
+      <span>Powered by Anthropic · Google Sheets · JavaScript</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── Hamburger
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileNav').classList.toggle('open');
+  });
+
+  // ── Animated counters
+  function animateCounter(el, target, duration = 1800, suffix = '') {
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { el.textContent = target.toLocaleString('en-IN') + suffix; clearInterval(timer); return; }
+      el.textContent = Math.floor(start).toLocaleString('en-IN') + suffix;
+    }, 16);
+  }
+
+  const counterObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(document.getElementById('counter-loans'), 52840, 1800, '+');
+        animateCounter(document.getElementById('counter-saved'), 1240, 2000, 'Cr');
+        animateCounter(document.getElementById('counter-users'), 48200, 1800, '+');
+        animateCounter(document.getElementById('counter-score'), 754, 2200);
+        counterObs.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  counterObs.observe(document.querySelector('.stats-row'));
+
+  // ── Floating particles
+  const particleContainer = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 1;
+    const colors = ['rgba(79,142,247,.4)', 'rgba(108,99,255,.3)', 'rgba(0,212,255,.35)', 'rgba(0,255,157,.25)'];
+    Object.assign(p.style, {
+      width: size + 'px', height: size + 'px',
+      left: Math.random() * 100 + '%',
+      top: Math.random() * 100 + '%',
+      background: colors[Math.floor(Math.random() * colors.length)],
+      animation: `floatParticle ${Math.random() * 10 + 6}s ease-in-out infinite`,
+      animationDelay: Math.random() * 5 + 's',
+      position: 'absolute'
+    });
+    particleContainer.appendChild(p);
+  }
+
+  const style = document.createElement('style');
+  style.textContent = `
+    #particles { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+    @keyframes floatParticle {
+      0%,100% { transform: translateY(0) translateX(0) scale(1); opacity:.6; }
+      33%      { transform: translateY(-40px) translateX(20px) scale(1.2); opacity:1; }
+      66%      { transform: translateY(-20px) translateX(-15px) scale(.9); opacity:.4; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ── Fade-in on scroll
+  const fadeEls = document.querySelectorAll('.fade-in-up');
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.style.animationPlayState = 'running'; });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => { el.style.animationPlayState = 'paused'; fadeObs.observe(el); });
+</script>
+</body>
+</html>

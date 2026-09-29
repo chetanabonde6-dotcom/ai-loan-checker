@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credit Score Analyzer — LoanAI</title>
+  <meta name="description" content="Analyze your credit score and get classified as Excellent, Good, or Poor with actionable financial improvement tips." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <div class="nav-logo-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <span>Loan<span class="text-gradient">AI</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="loan-eligibility.html">Eligibility</a></li>
+        <li><a class="nav-link active" href="credit-score.html">Credit Score</a></li>
+        <li><a class="nav-link" href="emi-calculator.html">EMI Calculator</a></li>
+        <li><a class="nav-link" href="ai-tips.html">AI Tips</a></li>
+      </ul>
+      <a href="loan-eligibility.html" class="btn btn-primary nav-cta">
+        <i class="fa-solid fa-rocket"></i> Get Started
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a class="nav-link" href="index.html">Home</a>
+  <a class="nav-link" href="loan-eligibility.html"><i class="fa-solid fa-check-circle"></i> Loan Eligibility</a>
+  <a class="nav-link active" href="credit-score.html"><i class="fa-solid fa-star-half-stroke"></i> Credit Score</a>
+  <a class="nav-link" href="emi-calculator.html"><i class="fa-solid fa-calculator"></i> EMI Calculator</a>
+  <a class="nav-link" href="ai-tips.html"><i class="fa-solid fa-robot"></i> AI Financial Tips</a>
+</div>
+
+<!-- ── Page Header ──────────────────────────────────────────── -->
+<div class="page-header">
+  <div class="container">
+    <div class="hero-badge" style="margin:0 auto 1.2rem"><i class="fa-solid fa-star-half-stroke"></i> Credit Score Analyzer</div>
+    <h1 class="page-title">Analyse Your <span class="text-gradient-gold">Credit Score</span></h1>
+    <p class="page-subtitle">Understand your financial credibility and get personalised improvement tips.</p>
+  </div>
+</div>
+
+<!-- ── Quick Nav ────────────────────────────────────────────── -->
+<div class="container">
+  <div class="quick-nav">
+    <a href="loan-eligibility.html" class="quick-nav-btn" id="qnav-loan"><i class="fa-solid fa-file-invoice-dollar"></i> Eligibility</a>
+    <a href="credit-score.html"     class="quick-nav-btn active" id="qnav-credit"><i class="fa-solid fa-star-half-stroke"></i> Credit Score</a>
+    <a href="emi-calculator.html"   class="quick-nav-btn" id="qnav-emi"><i class="fa-solid fa-calculator"></i> EMI Calculator</a>
+    <a href="ai-tips.html"          class="quick-nav-btn" id="qnav-ai"><i class="fa-solid fa-robot"></i> AI Tips</a>
+  </div>
+</div>
+
+<!-- ── Main Content ─────────────────────────────────────────── -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:start" id="main-grid">
+
+      <!-- Input Column -->
+      <div>
+        <!-- Score Input Card -->
+        <div class="glass-card form-card fade-in-up">
+          <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;margin-bottom:1.75rem;display:flex;align-items:center;gap:.6rem">
+            <span style="width:36px;height:36px;background:var(--grad-gold);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:#050b18"><i class="fa-solid fa-star"></i></span>
+            Enter Credit Score
+          </h2>
+
+          <form id="creditForm" novalidate>
+            <div class="form-grid" style="grid-template-columns:1fr">
+              <div class="form-group">
+                <label class="form-label" for="userName">Your Name</label>
+                <input type="text" class="form-input" id="userName" placeholder="e.g. Priya Patel" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="userScore">Credit Score (300–900)</label>
+                <input type="number" class="form-input" id="userScore" placeholder="750" min="300" max="900" required
+                  style="font-size:1.4rem;font-weight:700;text-align:center;font-family:var(--font-display)" />
+              </div>
+            </div>
+
+            <!-- Live Range Slider -->
+            <div style="margin-bottom:1.5rem">
+              <div style="display:flex;justify-content:space-between;font-size:.78rem;color:#64748b;margin-bottom:.4rem">
+                <span>300 — Poor</span><span>550 — Fair</span><span>700 — Good</span><span>900 — Excellent</span>
+              </div>
+              <input type="range" id="scoreSlider" min="300" max="900" value="750" style="width:100%;accent-color:var(--clr-primary);cursor:pointer" />
+              <div style="display:flex;justify-content:space-between;margin-top:.3rem">
+                <span style="font-size:.75rem;color:var(--clr-danger)">Poor</span>
+                <span style="font-size:.75rem;color:var(--clr-warning)">Fair</span>
+                <span style="font-size:.75rem;color:var(--clr-success)">Good</span>
+                <span style="font-size:.75rem;color:var(--clr-accent)">Excellent</span>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:1.5rem">
+              <label class="form-label" for="incomeRange">Monthly Income Range</label>
+              <select class="form-select" id="incomeRange">
+                <option value="below30k">Below ₹30,000</option>
+                <option value="30k-60k" selected>₹30,000 – ₹60,000</option>
+                <option value="60k-1L">₹60,000 – ₹1,00,000</option>
+                <option value="above1L">Above ₹1,00,000</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;font-size:1rem;padding:1rem" id="analyze-btn">
+              <i class="fa-solid fa-magnifying-glass-chart"></i> Analyse Credit Score
+            </button>
+          </form>
+        </div>
+
+        <!-- Score Scale -->
+        <div class="glass-card" style="padding:1.5rem;margin-top:1.5rem">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:#94a3b8"><i class="fa-solid fa-scale-balanced"></i> Credit Score Scale</h3>
+          <div style="display:flex;flex-direction:column;gap:.6rem">
+            <div style="display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.15);border-radius:var(--r-md)">
+              <span style="color:var(--clr-accent);font-size:.9rem"><i class="fa-solid fa-circle-check"></i></span>
+              <span style="font-size:.88rem;flex:1">Excellent</span>
+              <span style="font-size:.82rem;font-weight:700;color:var(--clr-accent)">750 – 900</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.15);border-radius:var(--r-md)">
+              <span style="color:var(--clr-success);font-size:.9rem"><i class="fa-solid fa-circle-check"></i></span>
+              <span style="font-size:.88rem;flex:1">Good</span>
+              <span style="font-size:.82rem;font-weight:700;color:var(--clr-success)">650 – 749</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;background:rgba(255,171,0,.06);border:1px solid rgba(255,171,0,.15);border-radius:var(--r-md)">
+              <span style="color:var(--clr-warning);font-size:.9rem"><i class="fa-solid fa-triangle-exclamation"></i></span>
+              <span style="font-size:.88rem;flex:1">Fair</span>
+              <span style="font-size:.82rem;font-weight:700;color:var(--clr-warning)">550 – 649</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;background:rgba(255,77,109,.06);border:1px solid rgba(255,77,109,.15);border-radius:var(--r-md)">
+              <span style="color:var(--clr-danger);font-size:.9rem"><i class="fa-solid fa-circle-xmark"></i></span>
+              <span style="font-size:.88rem;flex:1">Poor</span>
+              <span style="font-size:.82rem;font-weight:700;color:var(--clr-danger)">300 – 549</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result Column -->
+      <div id="result-col">
+        <!-- Placeholder -->
+        <div class="glass-card" style="padding:3rem;text-align:center;border-style:dashed" id="cs-placeholder">
+          <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">⭐</div>
+          <div style="font-family:var(--font-display);font-size:1.1rem;color:#64748b;font-weight:600">Score Analysis Will Appear Here</div>
+          <p style="color:#334155;font-size:.9rem;margin-top:.5rem">Enter your credit score to get a detailed analysis</p>
+        </div>
+
+        <!-- Result Panel -->
+        <div class="glass-card" style="display:none" id="cs-result">
+          <!-- Meter -->
+          <div style="padding:2rem;border-bottom:1px solid var(--clr-border)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+              <div>
+                <div style="font-size:.8rem;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">Your Score</div>
+                <div class="score-value-text" id="cs-display-score" style="font-size:3.5rem">—</div>
+                <div id="cs-band-label" style="font-size:.95rem;font-weight:600;margin-top:.3rem">—</div>
+              </div>
+              <!-- SVG Gauge -->
+              <div>
+                <svg viewBox="0 0 200 110" class="score-meter-svg" id="gauge-svg">
+                  <defs>
+                    <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%"   stop-color="#ff4d6d"/>
+                      <stop offset="33%"  stop-color="#ffab00"/>
+                      <stop offset="66%"  stop-color="#00e676"/>
+                      <stop offset="100%" stop-color="#00d4ff"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Background arc -->
+                  <path d="M 15 100 A 85 85 0 0 1 185 100" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="14" stroke-linecap="round"/>
+                  <!-- Colored arc -->
+                  <path d="M 15 100 A 85 85 0 0 1 185 100" fill="none" stroke="url(#gaugeGrad)" stroke-width="14" stroke-linecap="round"
+                    stroke-dasharray="267" id="gauge-arc" stroke-dashoffset="267"/>
+                  <!-- Needle -->
+                  <line id="gauge-needle" x1="100" y1="100" x2="100" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                    transform="rotate(-90 100 100)" style="transition:transform 1s ease"/>
+                  <circle cx="100" cy="100" r="6" fill="white"/>
+                  <!-- Labels -->
+                  <text x="12" y="115" fill="#64748b" font-size="9">300</text>
+                  <text x="175" y="115" fill="#64748b" font-size="9">900</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Band indicator bar -->
+            <div style="position:relative;height:8px;border-radius:99px;background:linear-gradient(90deg,#ff4d6d,#ffab00,#00e676,#00d4ff);margin-bottom:.5rem;overflow:hidden">
+              <div id="band-marker" style="position:absolute;top:-3px;width:14px;height:14px;background:white;border-radius:50%;box-shadow:0 0 8px rgba(0,0,0,.5);transform:translateX(-50%);transition:left 1s ease;left:0%"></div>
+            </div>
+            <div class="score-labels-row">
+              <span>Poor</span><span>Fair</span><span>Good</span><span>Excellent</span>
+            </div>
+          </div>
+
+          <!-- Tags & Stats -->
+          <div style="padding:1.5rem;border-bottom:1px solid var(--clr-border)">
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem" id="cs-tags"></div>
+            <div class="result-stats" style="grid-template-columns:1fr 1fr">
+              <div class="result-stat">
+                <div class="result-stat-num" id="cs-loan-eligibility" style="font-size:1rem">—</div>
+                <div class="result-stat-label">Loan Eligibility</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-num" id="cs-interest-rate" style="font-size:1rem">—</div>
+                <div class="result-stat-label">Expected Interest Rate</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tips -->
+          <div style="padding:1.5rem">
+            <div style="font-size:.82rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem">
+              <i class="fa-solid fa-lightbulb"></i> Personalised Recommendations
+            </div>
+            <div class="credit-tips" id="cs-tips"></div>
+
+            <!-- AI insights -->
+            <div id="cs-ai-wrap" style="margin-top:1.5rem;display:none">
+              <div style="padding:1.25rem;background:rgba(245,200,66,.07);border:1px solid rgba(245,200,66,.15);border-radius:var(--r-md)">
+                <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
+                  <span style="font-size:1rem">🤖</span>
+                  <span style="font-size:.82rem;font-weight:700;color:var(--clr-gold)">AI Credit Coach</span>
+                </div>
+                <p id="cs-ai-text" style="font-size:.88rem;color:#94a3b8;line-height:1.7"></p>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div style="display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap">
+              <a href="loan-eligibility.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-file-invoice-dollar"></i> Check Loan</a>
+              <a href="ai-tips.html" class="btn btn-gold btn-sm"><i class="fa-solid fa-robot"></i> AI Coach</a>
+              <button class="btn btn-sm" style="background:rgba(255,255,255,.06);color:#94a3b8" onclick="resetCS()">
+                <i class="fa-solid fa-rotate-left"></i> Analyse Again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2025 LoanAI. Built with ❤️ and Claude AI.</span>
+      <div style="display:flex;gap:1.5rem">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="loan-eligibility.html" class="footer-link">Eligibility</a>
+        <a href="emi-calculator.html" class="footer-link">EMI Calculator</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar
+  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60));
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileNav').classList.toggle('open'));
+
+  // Responsive grid
+  function adjustGrid() {
+    const g = document.getElementById('main-grid');
+    g.style.gridTemplateColumns = window.innerWidth < 900 ? '1fr' : '1fr 1.2fr';
+  }
+  adjustGrid(); window.addEventListener('resize', adjustGrid);
+
+  // Sync slider <-> input
+  const slider = document.getElementById('scoreSlider');
+  const scoreInput = document.getElementById('userScore');
+  slider.addEventListener('input', () => { scoreInput.value = slider.value; updateSliderColor(slider.value); });
+  scoreInput.addEventListener('input', () => {
+    const v = Math.min(900, Math.max(300, parseInt(scoreInput.value) || 300));
+    slider.value = v; updateSliderColor(v);
+  });
+  function updateSliderColor(v) {
+    const pct = ((v - 300) / 600) * 100;
+    const color = v >= 750 ? 'var(--clr-accent)' : v >= 650 ? 'var(--clr-success)' : v >= 550 ? 'var(--clr-warning)' : 'var(--clr-danger)';
+    slider.style.accentColor = color;
+  }
+  scoreInput.value = 750; updateSliderColor(750);
+
+  // Form Submit
+  document.getElementById('creditForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    analyseCreditScore();
+  });
+
+  function analyseCreditScore() {
+    const btn = document.getElementById('analyze-btn');
+    btn.innerHTML = '<div class="spinner"></div> Analysing...';
+    btn.disabled = true;
+
+    const score = parseInt(document.getElementById('userScore').value) || 0;
+    const name  = document.getElementById('userName').value.trim() || 'User';
+    const income = document.getElementById('incomeRange').value;
+
+    if (score < 300 || score > 900) {
+      alert('Please enter a valid credit score between 300 and 900.');
+      btn.innerHTML = '<i class="fa-solid fa-magnifying-glass-chart"></i> Analyse Credit Score';
+      btn.disabled = false;
+      return;
+    }
+
+    setTimeout(() => {
+      displayCreditResult(score, name, income);
+      btn.innerHTML = '<i class="fa-solid fa-magnifying-glass-chart"></i> Analyse Credit Score';
+      btn.disabled = false;
+    }, 800);
+  }
+
+  function displayCreditResult(score, name, income) {
+    document.getElementById('cs-placeholder').style.display = 'none';
+    const panel = document.getElementById('cs-result');
+    panel.style.display = 'block';
+    panel.classList.add('show');
+
+    // Classify
+    let band, bandColor, loanEligibility, interestRate;
+    if (score >= 750) {
+      band = 'Excellent'; bandColor = 'var(--clr-accent)';
+      loanEligibility = 'Highly Eligible'; interestRate = '7.5% – 8.5%';
+    } else if (score >= 650) {
+      band = 'Good'; bandColor = 'var(--clr-success)';
+      loanEligibility = 'Eligible'; interestRate = '9% – 11%';
+    } else if (score >= 550) {
+      band = 'Fair'; bandColor = 'var(--clr-warning)';
+      loanEligibility = 'Conditionally'; interestRate = '12% – 15%';
+    } else {
+      band = 'Poor'; bandColor = 'var(--clr-danger)';
+      loanEligibility = 'Not Eligible'; interestRate = '18%+';
+    }
+
+    // Score display
+    document.getElementById('cs-display-score').textContent = score;
+    document.getElementById('cs-display-score').style.color = bandColor;
+    document.getElementById('cs-band-label').textContent = `${band} Credit Profile`;
+    document.getElementById('cs-band-label').style.color = bandColor;
+
+    // Gauge animation
+    const pct = (score - 300) / 600; // 0 to 1
+    const arcLen = 267;
+    const dashOffset = arcLen - arcLen * pct;
+    const arc = document.getElementById('gauge-arc');
+    arc.style.strokeDashoffset = dashOffset;
+    arc.style.transition = 'stroke-dashoffset 1.2s ease';
+
+    // Needle: -90deg = 300, +90deg = 900
+    const needleAngle = -90 + pct * 180;
+    document.getElementById('gauge-needle').setAttribute('transform', `rotate(${needleAngle} 100 100)`);
+
+    // Band marker
+    const markerPct = pct * 100;
+    setTimeout(() => { document.getElementById('band-marker').style.left = markerPct + '%'; }, 100);
+
+    // Tags
+    const tagsEl = document.getElementById('cs-tags');
+    tagsEl.innerHTML = `<span class="tag ${score>=750?'tag-cyan':score>=650?'tag-success':score>=550?'tag-warning':'tag-danger'}">${band}</span>`;
+    tagsEl.innerHTML += `<span class="tag tag-blue">Score: ${score}</span>`;
+
+    // Stats
+    document.getElementById('cs-loan-eligibility').textContent = loanEligibility;
+    document.getElementById('cs-loan-eligibility').style.color = bandColor;
+    document.getElementById('cs-interest-rate').textContent = interestRate;
+
+    // Tips
+    const tipsEl = document.getElementById('cs-tips');
+    tipsEl.innerHTML = '';
+    const allTips = getTips(score);
+    allTips.forEach(t => {
+      tipsEl.innerHTML += `
+        <div class="credit-tip">
+          <span class="credit-tip-icon">${t.icon}</span>
+          <span>${t.text}</span>
+        </div>`;
+    });
+
+    // AI insight
+    const aiWrap = document.getElementById('cs-ai-wrap');
+    aiWrap.style.display = 'block';
+    document.getElementById('cs-ai-text').textContent = getAIInsight(score, name, band, income);
+
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function getTips(score) {
+    if (score >= 750) return [
+      { icon: '✅', text: 'Outstanding credit profile! You qualify for the best loan rates and highest amounts.' },
+      { icon: '💳', text: 'Maintain low credit utilisation (below 30%) to preserve your excellent standing.' },
+      { icon: '📅', text: 'Continue timely repayments on all existing obligations.' },
+      { icon: '🏦', text: 'Diversify credit types (home, personal, credit card) to further strengthen your profile.' },
+      { icon: '🔍', text: 'Avoid multiple hard inquiries in a short period to protect your score.' }
+    ];
+    if (score >= 650) return [
+      { icon: '👍', text: 'Good credit profile. You qualify for most loans with competitive interest rates.' },
+      { icon: '📈', text: 'Pay down existing balances to push your score above 750 for premium rates.' },
+      { icon: '🚫', text: 'Avoid missing any EMI payments — even one miss can drop your score by 50–70 points.' },
+      { icon: '⏱️', text: 'Set up auto-debit for all loan EMIs to prevent accidental missed payments.' },
+      { icon: '💰', text: 'Request a credit limit increase to lower your utilisation ratio without spending more.' }
+    ];
+    if (score >= 550) return [
+      { icon: '⚠️', text: 'Fair score. You may qualify for loans but at higher interest rates.' },
+      { icon: '🔄', text: 'Focus on paying off high-interest debts first — start with credit cards.' },
+      { icon: '📅', text: 'Establish a 6-month streak of on-time payments to see a significant score boost.' },
+      { icon: '❌', text: 'Stop applying for new credit — each hard inquiry reduces your score temporarily.' },
+      { icon: '🤝', text: 'Consider a secured loan or credit card to rebuild your credit history.' }
+    ];
+    return [
+      { icon: '🔴', text: 'Poor score. Most lenders will require a co-applicant or collateral.' },
+      { icon: '📋', text: 'Get a free credit report from CIBIL/Experian and dispute any incorrect entries.' },
+      { icon: '💳', text: 'Start with a secured credit card (backed by FD) to build a positive credit history.' },
+      { icon: '🏠', text: 'Avoid foreclosures, settlements, and write-offs — they stay on record for 7 years.' },
+      { icon: '⏳', text: 'With consistent effort, it is realistic to improve your score by 100–150 points in 12 months.' }
+    ];
+  }
+
+  function getAIInsight(score, name, band, income) {
+    const n = name || 'there';
+    if (score >= 750) return `${n}, your ${score} credit score places you in the top tier of borrowers! Banks will proactively compete for your business. You can negotiate interest rates down by 0.5–1% by comparing lenders. This is the perfect time to consider refinancing any existing high-interest loans.`;
+    if (score >= 650) return `${n}, your score of ${score} is solid but there's room to reach "Excellent" status. Reducing your credit card utilisation from current levels to under 30%, and maintaining zero missed payments for the next 6 months, could push your score above 750 — unlocking significantly better loan terms.`;
+    if (score >= 550) return `${n}, your score of ${score} suggests some past credit challenges. The fastest way to recover: set up auto-pay for all bills, pay down revolving credit balances, and check your credit report for errors (which affect 30% of reports). Consistent effort for 6–9 months can realistically move you into the "Good" range.`;
+    return `${n}, a score of ${score} needs focused attention. Start with a secured credit card or FD-backed card, use it only for small purchases, and pay the full balance monthly. Simultaneously, dispute any incorrect negative entries on your CIBIL report. This two-pronged strategy can yield a 100+ point improvement within 12 months.`;
+  }
+
+  function resetCS() {
+    document.getElementById('creditForm').reset();
+    document.getElementById('userScore').value = 750;
+    slider.value = 750; updateSliderColor(750);
+    document.getElementById('cs-result').style.display = 'none';
+    document.getElementById('cs-placeholder').style.display = 'block';
+  }
+</script>
+</body>
+</html>

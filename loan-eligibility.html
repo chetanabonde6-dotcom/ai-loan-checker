@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Eligibility Checker — LoanAI</title>
+  <meta name="description" content="Check your loan eligibility instantly using AI-powered rule-based validation. Get your eligible loan amount in seconds." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <div class="nav-logo-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <span>Loan<span class="text-gradient">AI</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li><a class="nav-link active" href="loan-eligibility.html">Eligibility</a></li>
+        <li><a class="nav-link" href="credit-score.html">Credit Score</a></li>
+        <li><a class="nav-link" href="emi-calculator.html">EMI Calculator</a></li>
+        <li><a class="nav-link" href="ai-tips.html">AI Tips</a></li>
+      </ul>
+      <a href="loan-eligibility.html" class="btn btn-primary nav-cta">
+        <i class="fa-solid fa-rocket"></i> Get Started
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a class="nav-link" href="index.html">Home</a>
+  <a class="nav-link active" href="loan-eligibility.html"><i class="fa-solid fa-check-circle"></i> Loan Eligibility</a>
+  <a class="nav-link" href="credit-score.html"><i class="fa-solid fa-star-half-stroke"></i> Credit Score</a>
+  <a class="nav-link" href="emi-calculator.html"><i class="fa-solid fa-calculator"></i> EMI Calculator</a>
+  <a class="nav-link" href="ai-tips.html"><i class="fa-solid fa-robot"></i> AI Financial Tips</a>
+</div>
+
+<!-- ── Page Header ──────────────────────────────────────────── -->
+<div class="page-header">
+  <div class="container">
+    <div class="hero-badge" style="margin:0 auto 1.2rem"><i class="fa-solid fa-file-invoice-dollar"></i> Loan Eligibility Checker</div>
+    <h1 class="page-title">Check Your <span class="text-gradient">Loan Eligibility</span></h1>
+    <p class="page-subtitle">Fill in your financial details and our AI engine will instantly evaluate your eligibility.</p>
+  </div>
+</div>
+
+<!-- ── Quick Nav ────────────────────────────────────────────── -->
+<div class="container">
+  <div class="quick-nav">
+    <a href="loan-eligibility.html" class="quick-nav-btn active" id="qnav-loan"><i class="fa-solid fa-file-invoice-dollar"></i> Eligibility</a>
+    <a href="credit-score.html"     class="quick-nav-btn" id="qnav-credit"><i class="fa-solid fa-star-half-stroke"></i> Credit Score</a>
+    <a href="emi-calculator.html"   class="quick-nav-btn" id="qnav-emi"><i class="fa-solid fa-calculator"></i> EMI Calculator</a>
+    <a href="ai-tips.html"          class="quick-nav-btn" id="qnav-ai"><i class="fa-solid fa-robot"></i> AI Tips</a>
+  </div>
+</div>
+
+<!-- ── Main Content ─────────────────────────────────────────── -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start" id="main-grid">
+
+      <!-- Form -->
+      <div>
+        <div class="glass-card form-card fade-in-up" id="eligibility-form-card">
+          <h2 style="font-family:var(--font-display);font-size:1.25rem;font-weight:700;margin-bottom:1.75rem;display:flex;align-items:center;gap:.6rem">
+            <span style="width:36px;height:36px;background:var(--grad-primary);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:.9rem"><i class="fa-solid fa-user"></i></span>
+            Your Financial Profile
+          </h2>
+
+          <div id="form-alert" class="alert alert-info" style="display:none">
+            <i class="fa-solid fa-circle-info"></i>
+            <span id="form-alert-text"></span>
+          </div>
+
+          <form id="eligibilityForm" novalidate>
+            <div class="form-grid">
+              <div class="form-group full">
+                <label class="form-label" for="applicantName">Full Name</label>
+                <input type="text" class="form-input" id="applicantName" placeholder="e.g. Rahul Sharma" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="monthlySalary">Monthly Salary (₹)</label>
+                <div class="input-group">
+                  <span class="input-prefix">₹</span>
+                  <input type="number" class="form-input" id="monthlySalary" placeholder="50,000" min="0" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="creditScore">Credit Score</label>
+                <input type="number" class="form-input" id="creditScore" placeholder="300–900" min="300" max="900" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="existingEMI">Existing EMI/Month (₹)</label>
+                <div class="input-group">
+                  <span class="input-prefix">₹</span>
+                  <input type="number" class="form-input" id="existingEMI" placeholder="5,000" min="0" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="applicantAge">Age (Years)</label>
+                <input type="number" class="form-input" id="applicantAge" placeholder="25" min="18" max="70" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="loanType">Loan Type</label>
+                <select class="form-select" id="loanType">
+                  <option value="home">Home Loan</option>
+                  <option value="personal">Personal Loan</option>
+                  <option value="car">Car Loan</option>
+                  <option value="education">Education Loan</option>
+                  <option value="business">Business Loan</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="desiredTenure">Desired Tenure (Years)</label>
+                <input type="number" class="form-input" id="desiredTenure" placeholder="5" min="1" max="30" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="employmentType">Employment Type</label>
+                <select class="form-select" id="employmentType">
+                  <option value="salaried">Salaried</option>
+                  <option value="self-employed">Self-Employed</option>
+                  <option value="business">Business Owner</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:1rem;padding:1rem" id="check-btn">
+              <i class="fa-solid fa-magnifying-glass"></i> Check Eligibility
+            </button>
+          </form>
+        </div>
+
+        <!-- Eligibility Rules Info -->
+        <div class="glass-card" style="padding:1.5rem;margin-top:1.5rem" id="rules-card">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;color:#94a3b8">
+            <i class="fa-solid fa-circle-info"></i> Eligibility Criteria
+          </h3>
+          <div style="display:flex;flex-direction:column;gap:.65rem">
+            <div class="credit-tip">
+              <span class="credit-tip-icon" style="color:var(--clr-success)"><i class="fa-solid fa-circle-check"></i></span>
+              <span>Monthly salary must be <strong>above ₹30,000</strong></span>
+            </div>
+            <div class="credit-tip">
+              <span class="credit-tip-icon" style="color:var(--clr-success)"><i class="fa-solid fa-circle-check"></i></span>
+              <span>Credit score must be <strong>above 700</strong></span>
+            </div>
+            <div class="credit-tip">
+              <span class="credit-tip-icon" style="color:var(--clr-success)"><i class="fa-solid fa-circle-check"></i></span>
+              <span>Existing EMIs must be <strong>below ₹20,000/month</strong></span>
+            </div>
+            <div class="credit-tip">
+              <span class="credit-tip-icon" style="color:var(--clr-success)"><i class="fa-solid fa-circle-check"></i></span>
+              <span>Applicant age must be <strong>21 years or above</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="result-col">
+        <!-- Placeholder -->
+        <div class="glass-card" style="padding:3rem;text-align:center;border-style:dashed" id="placeholder-card">
+          <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">🏦</div>
+          <div style="font-family:var(--font-display);font-size:1.1rem;color:#64748b;font-weight:600">Your Results Will Appear Here</div>
+          <p style="color:#334155;font-size:.9rem;margin-top:.5rem">Submit the form to get your eligibility analysis</p>
+        </div>
+
+        <!-- Result Panel -->
+        <div class="glass-card result-panel" id="resultPanel" style="display:none">
+          <div class="result-header" id="result-header">
+            <div class="result-icon" id="result-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <div>
+              <div class="result-title-text" id="result-title">Loan Eligible!</div>
+              <div class="result-subtitle" id="result-subtitle">Your financial profile meets all eligibility criteria</div>
+            </div>
+          </div>
+          <div class="result-body">
+            <!-- Tags row -->
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem" id="result-tags"></div>
+
+            <!-- Stats -->
+            <div class="result-stats" id="result-stats">
+              <div class="result-stat">
+                <div class="result-stat-num" id="stat-amount">—</div>
+                <div class="result-stat-label">Eligible Amount</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-num" id="stat-risk">—</div>
+                <div class="result-stat-label">Risk Level</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-num" id="stat-score">—</div>
+                <div class="result-stat-label">Credit Band</div>
+              </div>
+            </div>
+
+            <!-- Score progress -->
+            <div style="margin-bottom:1.5rem" id="score-bar-wrap">
+              <div style="display:flex;justify-content:space-between;margin-bottom:.5rem">
+                <span style="font-size:.82rem;color:#64748b">Approval Probability</span>
+                <span style="font-size:.82rem;font-weight:700" id="approval-pct">—</span>
+              </div>
+              <div class="progress-bar-wrap" style="height:10px">
+                <div class="progress-bar-fill" id="approval-bar" style="width:0%"></div>
+              </div>
+            </div>
+
+            <!-- Reasons -->
+            <div id="reasons-section">
+              <div style="font-size:.82rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem">Analysis Details</div>
+              <div id="reasons-list" style="display:flex;flex-direction:column;gap:.5rem"></div>
+            </div>
+
+            <!-- AI Insight -->
+            <div id="ai-insight" style="margin-top:1.5rem;padding:1.25rem;background:rgba(79,142,247,.07);border:1px solid rgba(79,142,247,.15);border-radius:var(--r-md);display:none">
+              <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem">
+                <span style="font-size:1rem">🤖</span>
+                <span style="font-size:.82rem;font-weight:700;color:var(--clr-primary)">AI Financial Insight</span>
+              </div>
+              <p id="ai-insight-text" style="font-size:.88rem;color:#94a3b8;line-height:1.7"></p>
+            </div>
+
+            <!-- Actions -->
+            <div style="display:flex;gap:.75rem;margin-top:1.5rem;flex-wrap:wrap">
+              <a href="emi-calculator.html" class="btn btn-primary btn-sm" id="res-emi-btn"><i class="fa-solid fa-calculator"></i> Calculate EMI</a>
+              <a href="ai-tips.html" class="btn btn-outline btn-sm" id="res-ai-btn"><i class="fa-solid fa-robot"></i> Get AI Tips</a>
+              <button class="btn btn-sm" style="background:rgba(255,255,255,.06);color:#94a3b8" id="res-reset-btn" onclick="resetForm()">
+                <i class="fa-solid fa-rotate-left"></i> Check Again
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saved to Sheets notification -->
+        <div class="alert alert-success" style="margin-top:1rem;display:none" id="sheets-alert">
+          <i class="fa-brands fa-google"></i>
+          <span>Results saved to Google Sheets for your records.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2025 LoanAI. Built with ❤️ and Claude AI.</span>
+      <div style="display:flex;gap:1.5rem">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="emi-calculator.html" class="footer-link">EMI Calculator</a>
+        <a href="ai-tips.html" class="footer-link">AI Tips</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+  // ── Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  });
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobileNav').classList.toggle('open');
+  });
+
+  // ── Responsive grid
+  function adjustGrid() {
+    const grid = document.getElementById('main-grid');
+    if (window.innerWidth < 900) grid.style.gridTemplateColumns = '1fr';
+    else grid.style.gridTemplateColumns = '1fr 1fr';
+  }
+  adjustGrid();
+  window.addEventListener('resize', adjustGrid);
+
+  // ── Form Submit
+  document.getElementById('eligibilityForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    checkEligibility();
+  });
+
+  async function checkEligibility() {
+    const btn = document.getElementById('check-btn');
+    btn.innerHTML = '<div class="spinner"></div> Analysing...';
+    btn.disabled = true;
+
+    // Gather inputs
+    const name    = document.getElementById('applicantName').value.trim();
+    const salary  = parseFloat(document.getElementById('monthlySalary').value) || 0;
+    const score   = parseInt(document.getElementById('creditScore').value)    || 0;
+    const emi     = parseFloat(document.getElementById('existingEMI').value)  || 0;
+    const age     = parseInt(document.getElementById('applicantAge').value)   || 0;
+    const loanType    = document.getElementById('loanType').value;
+    const tenure      = parseInt(document.getElementById('desiredTenure').value) || 5;
+    const employment  = document.getElementById('employmentType').value;
+
+    // Simple client-side validation
+    if (!name) { showFormAlert('Please enter your full name.'); resetBtn(); return; }
+    if (salary <= 0) { showFormAlert('Please enter a valid salary.'); resetBtn(); return; }
+    if (score < 300 || score > 900) { showFormAlert('Credit score must be between 300 and 900.'); resetBtn(); return; }
+    if (age < 18) { showFormAlert('Applicant must be at least 18 years old.'); resetBtn(); return; }
+
+    hideFormAlert();
+
+    // ── Rule-based eligibility
+    const rules = [
+      { pass: salary > 30000,  label: 'Monthly Salary > ₹30,000',  value: `₹${salary.toLocaleString('en-IN')}` },
+      { pass: score > 700,     label: 'Credit Score > 700',        value: score },
+      { pass: emi < 20000,     label: 'Existing EMI < ₹20,000',   value: `₹${emi.toLocaleString('en-IN')}` },
+      { pass: age >= 21,       label: 'Age ≥ 21 Years',            value: `${age} yrs` }
+    ];
+    const allPass = rules.every(r => r.pass);
+    const passCount = rules.filter(r => r.pass).length;
+
+    const eligibleAmount = allPass ? salary * 20 : 0;
+    const riskLevel = score >= 750 ? 'Low' : score >= 650 ? 'Medium' : 'High';
+    const creditBand = score >= 750 ? 'Excellent' : score >= 650 ? 'Good' : 'Poor';
+    const approvalPct = Math.round((passCount / rules.length) * 100);
+
+    // Show result
+    await new Promise(r => setTimeout(r, 900)); // simulate AI processing
+
+    displayResult({ name, salary, score, emi, age, loanType, tenure, employment,
+      allPass, rules, eligibleAmount, riskLevel, creditBand, approvalPct });
+
+    // Generate AI insight
+    generateAIInsight({ name, salary, score, emi, age, allPass, eligibleAmount, riskLevel, loanType, tenure });
+
+    // Save to Google Sheets
+    saveToSheets({ name, salary, score, emi, age, loanType, allPass, eligibleAmount });
+
+    resetBtn();
+  }
+
+  function displayResult({ name, allPass, rules, eligibleAmount, riskLevel, creditBand, approvalPct }) {
+    document.getElementById('placeholder-card').style.display = 'none';
+    const panel = document.getElementById('resultPanel');
+    panel.style.display = 'block';
+    panel.classList.add('show');
+
+    // Header
+    const icon  = document.getElementById('result-icon');
+    const title = document.getElementById('result-title');
+    const sub   = document.getElementById('result-subtitle');
+
+    if (allPass) {
+      icon.className  = 'result-icon approved';
+      icon.innerHTML  = '<i class="fa-solid fa-circle-check"></i>';
+      title.textContent = '🎉 Loan Eligible!';
+      sub.textContent   = 'Congratulations! Your profile meets all eligibility criteria.';
+      panel.style.borderColor = 'rgba(0,230,118,.25)';
+    } else {
+      icon.className  = 'result-icon rejected';
+      icon.innerHTML  = '<i class="fa-solid fa-circle-xmark"></i>';
+      title.textContent = '❌ Not Eligible';
+      sub.textContent   = 'Your profile did not meet one or more eligibility criteria.';
+      panel.style.borderColor = 'rgba(255,77,109,.25)';
+    }
+
+    // Tags
+    const tagsEl = document.getElementById('result-tags');
+    tagsEl.innerHTML = '';
+    tagsEl.innerHTML += allPass
+      ? '<span class="tag tag-success"><i class="fa-solid fa-circle-check"></i> Approved</span>'
+      : '<span class="tag tag-danger"><i class="fa-solid fa-circle-xmark"></i> Rejected</span>';
+    const riskTagClass = riskLevel === 'Low' ? 'tag-success' : riskLevel === 'Medium' ? 'tag-warning' : 'tag-danger';
+    tagsEl.innerHTML += `<span class="tag ${riskTagClass}">${riskLevel} Risk</span>`;
+    tagsEl.innerHTML += `<span class="tag tag-blue">${creditBand} Credit</span>`;
+
+    // Stats
+    document.getElementById('stat-amount').textContent = allPass ? `₹${eligibleAmount.toLocaleString('en-IN')}` : '₹0';
+    document.getElementById('stat-amount').style.color = allPass ? 'var(--clr-success)' : 'var(--clr-danger)';
+    document.getElementById('stat-risk').textContent   = riskLevel;
+    document.getElementById('stat-risk').style.color   = riskLevel === 'Low' ? 'var(--clr-success)' : riskLevel === 'Medium' ? 'var(--clr-warning)' : 'var(--clr-danger)';
+    document.getElementById('stat-score').textContent  = creditBand;
+
+    // Approval bar
+    document.getElementById('approval-pct').textContent = approvalPct + '%';
+    document.getElementById('approval-pct').style.color = allPass ? 'var(--clr-success)' : 'var(--clr-danger)';
+    const barFill = document.getElementById('approval-bar');
+    barFill.style.width = '0%';
+    barFill.style.background = allPass ? 'var(--grad-accent)' : 'var(--grad-danger)';
+    setTimeout(() => { barFill.style.width = approvalPct + '%'; barFill.style.transition = 'width 1s ease'; }, 100);
+
+    // Rules list
+    const reasonsList = document.getElementById('reasons-list');
+    reasonsList.innerHTML = '';
+    rules.forEach(r => {
+      reasonsList.innerHTML += `
+        <div class="credit-tip">
+          <span class="credit-tip-icon" style="color:${r.pass ? 'var(--clr-success)' : 'var(--clr-danger)'}">
+            <i class="fa-solid ${r.pass ? 'fa-circle-check' : 'fa-circle-xmark'}"></i>
+          </span>
+          <span style="flex:1">${r.label}</span>
+          <span style="font-weight:600;color:#94a3b8;font-size:.82rem">${r.value}</span>
+        </div>`;
+    });
+
+    // Scroll result into view
+    setTimeout(() => document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+
+  async function generateAIInsight({ name, salary, score, emi, age, allPass, eligibleAmount, riskLevel, loanType, tenure }) {
+    const insightEl = document.getElementById('ai-insight');
+    const insightText = document.getElementById('ai-insight-text');
+    insightEl.style.display = 'block';
+    insightText.textContent = 'AI is generating personalised insights...';
+
+    const CLAUDE_API_KEY = window.CLAUDE_API_KEY || '';
+
+    if (CLAUDE_API_KEY) {
+      try {
+        const prompt = `You are a financial advisor. Analyse this loan application in 2-3 concise sentences:
+Name: ${name}, Salary: ₹${salary}/month, Credit Score: ${score}, Existing EMI: ₹${emi}/month, Age: ${age}, 
+Loan Type: ${loanType}, Desired Tenure: ${tenure} years, Decision: ${allPass ? 'APPROVED' : 'REJECTED'}, 
+Eligible Amount: ₹${eligibleAmount}, Risk: ${riskLevel}.
+Give personalised advice for improvement or next steps.`;
+
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: { 'x-api-key': CLAUDE_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json', 'anthropic-dangerous-direct-browser-access': 'true' },
+          body: JSON.stringify({ model: 'claude-opus-4-5', max_tokens: 200, messages: [{ role: 'user', content: prompt }] })
+        });
+        const data = await res.json();
+        insightText.textContent = data.content?.[0]?.text || getFallbackInsight({ allPass, score, salary, emi, eligibleAmount, riskLevel });
+      } catch {
+        insightText.textContent = getFallbackInsight({ allPass, score, salary, emi, eligibleAmount, riskLevel });
+      }
+    } else {
+      insightText.textContent = getFallbackInsight({ allPass, score, salary, emi, eligibleAmount, riskLevel });
+    }
+  }
+
+  function getFallbackInsight({ allPass, score, salary, emi, eligibleAmount, riskLevel }) {
+    if (allPass) {
+      const emiPct = Math.round((emi / salary) * 100);
+      return `Great news, ${document.getElementById('applicantName').value}! You're eligible for a loan of ₹${eligibleAmount.toLocaleString('en-IN')}. ` +
+        `Your credit score of ${score} puts you in an excellent position. ` +
+        (emiPct > 30 ? `Consider reducing existing EMIs (currently ${emiPct}% of salary) before taking on new debt to optimise your financial health.`
+          : `Your debt-to-income ratio looks healthy. Consider comparing interest rates from multiple lenders to get the best deal.`);
+    } else {
+      const tips = [];
+      if (score <= 700) tips.push(`improve your credit score (currently ${score} — target 750+) by making timely payments`);
+      if (salary <= 30000) tips.push(`increase your monthly income (currently ₹${salary.toLocaleString('en-IN')}) above ₹30,000`);
+      if (emi >= 20000) tips.push(`reduce existing EMI obligations (currently ₹${emi.toLocaleString('en-IN')}) below ₹20,000`);
+      return `To improve your eligibility, focus on: ${tips.join(', ')}. ` +
+        `Consider applying again in 3–6 months after addressing these factors.`;
+    }
+  }
+
+  function saveToSheets({ name, salary, score, emi, age, loanType, allPass, eligibleAmount }) {
+    const SHEETS_URL = window.SHEETS_URL || '';
+    const payload = { name, salary, score, emi, age, loanType, status: allPass ? 'Approved' : 'Rejected', eligibleAmount, timestamp: new Date().toISOString() };
+
+    if (SHEETS_URL) {
+      fetch(SHEETS_URL, { method: 'POST', body: JSON.stringify(payload) })
+        .then(() => document.getElementById('sheets-alert').style.display = 'flex')
+        .catch(() => {});
+    } else {
+      // Simulate saved (demo mode)
+      setTimeout(() => document.getElementById('sheets-alert').style.display = 'flex', 1500);
+    }
+  }
+
+  function resetForm() {
+    document.getElementById('eligibilityForm').reset();
+    document.getElementById('resultPanel').style.display = 'none';
+    document.getElementById('resultPanel').classList.remove('show');
+    document.getElementById('placeholder-card').style.display = 'block';
+    document.getElementById('sheets-alert').style.display = 'none';
+    document.getElementById('ai-insight').style.display = 'none';
+    hideFormAlert();
+  }
+
+  function showFormAlert(msg) {
+    const el = document.getElementById('form-alert');
+    el.style.display = 'flex';
+    el.className = 'alert alert-error';
+    document.getElementById('form-alert-text').textContent = msg;
+  }
+  function hideFormAlert() { document.getElementById('form-alert').style.display = 'none'; }
+  function resetBtn() {
+    const btn = document.getElementById('check-btn');
+    btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Check Eligibility';
+    btn.disabled = false;
+  }
+</script>
+</body>
+</html>

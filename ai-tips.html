@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Financial Advisor — LoanAI</title>
+  <meta name="description" content="Chat with our Claude-powered AI financial advisor for personalised loan guidance, credit tips, and EMI planning advice." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <div class="nav-logo-icon"><i class="fa-solid fa-chart-line"></i></div>
+        <span>Loan<span class="text-gradient">AI</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="loan-eligibility.html">Eligibility</a></li>
+        <li><a class="nav-link" href="credit-score.html">Credit Score</a></li>
+        <li><a class="nav-link" href="emi-calculator.html">EMI Calculator</a></li>
+        <li><a class="nav-link active" href="ai-tips.html">AI Tips</a></li>
+      </ul>
+      <a href="loan-eligibility.html" class="btn btn-primary nav-cta">
+        <i class="fa-solid fa-rocket"></i> Get Started
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a class="nav-link" href="index.html">Home</a>
+  <a class="nav-link" href="loan-eligibility.html">Loan Eligibility</a>
+  <a class="nav-link" href="credit-score.html">Credit Score</a>
+  <a class="nav-link" href="emi-calculator.html">EMI Calculator</a>
+  <a class="nav-link active" href="ai-tips.html">AI Financial Tips</a>
+</div>
+
+<!-- ── Page Header ──────────────────────────────────────────── -->
+<div class="page-header">
+  <div class="container">
+    <div class="hero-badge" style="margin:0 auto 1.2rem"><i class="fa-solid fa-robot"></i> AI Financial Advisor</div>
+    <h1 class="page-title">Chat with Your <span class="text-gradient">AI Advisor</span></h1>
+    <p class="page-subtitle">Powered by Claude AI — get personalised financial guidance, loan tips, and credit advice instantly.</p>
+  </div>
+</div>
+
+<!-- ── Quick Nav ────────────────────────────────────────────── -->
+<div class="container">
+  <div class="quick-nav">
+    <a href="loan-eligibility.html" class="quick-nav-btn"><i class="fa-solid fa-file-invoice-dollar"></i> Eligibility</a>
+    <a href="credit-score.html"     class="quick-nav-btn"><i class="fa-solid fa-star-half-stroke"></i> Credit Score</a>
+    <a href="emi-calculator.html"   class="quick-nav-btn"><i class="fa-solid fa-calculator"></i> EMI Calculator</a>
+    <a href="ai-tips.html"          class="quick-nav-btn active"><i class="fa-solid fa-robot"></i> AI Tips</a>
+  </div>
+</div>
+
+<!-- ── Main Content ─────────────────────────────────────────── -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:2rem;align-items:start" id="main-grid">
+
+      <!-- Left: API Config + Quick Prompts -->
+      <div>
+        <!-- API Key Config -->
+        <div class="glass-card form-card fade-in-up" style="margin-bottom:1.5rem">
+          <h3 style="font-family:var(--font-display);font-size:1.05rem;font-weight:700;margin-bottom:1.25rem;display:flex;align-items:center;gap:.6rem">
+            <span style="width:32px;height:32px;background:var(--grad-primary);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:.8rem"><i class="fa-solid fa-key"></i></span>
+            Claude API Setup
+          </h3>
+          <div class="alert alert-info" style="margin-bottom:1rem">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Add your Claude API key to enable real AI responses. The app works in <strong>demo mode</strong> without a key.</span>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem">
+            <label class="form-label" for="apiKey">Anthropic API Key</label>
+            <div style="display:flex;gap:.5rem">
+              <input type="password" class="form-input" id="apiKey" placeholder="sk-ant-..." style="flex:1" />
+              <button class="btn btn-primary btn-sm" onclick="saveApiKey()" id="save-key-btn"><i class="fa-solid fa-check"></i></button>
+            </div>
+          </div>
+          <div id="api-status" class="alert" style="display:none"></div>
+
+          <!-- Google Sheets URL -->
+          <div class="form-group" style="margin-top:1rem">
+            <label class="form-label" for="sheetsUrl">Google Sheets Webhook URL <span style="color:#334155;font-weight:400">(optional)</span></label>
+            <input type="url" class="form-input" id="sheetsUrl" placeholder="https://script.google.com/..." />
+            <button class="btn btn-outline btn-sm" style="margin-top:.5rem;width:100%;justify-content:center" onclick="saveSheetsUrl()">
+              <i class="fa-brands fa-google"></i> Connect Google Sheets
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Prompts -->
+        <div class="glass-card" style="padding:1.5rem;margin-bottom:1.5rem">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:#94a3b8"><i class="fa-solid fa-bolt"></i> Quick Questions</h3>
+          <div style="display:flex;flex-direction:column;gap:.5rem" id="quick-prompts">
+            <button class="quick-nav-btn" style="text-align:left;width:100%;justify-content:flex-start" onclick="sendQuick(this.textContent)">How can I improve my credit score fast?</button>
+            <button class="quick-nav-btn" style="text-align:left;width:100%;justify-content:flex-start" onclick="sendQuick(this.textContent)">What is the best loan tenure to minimise interest?</button>
+            <button class="quick-nav-btn" style="text-align:left;width:100%;justify-content:flex-start" onclick="sendQuick(this.textContent)">How does EMI calculation work?</button>
+            <button class="quick-nav-btn" style="text-align:left;width:100%;justify-content:flex-start" onclick="sendQuick(this.textContent)">Should I pay off existing EMIs before taking a new loan?</button>
+            <button class="quick-nav-btn" style="text-align:left;width:100%;justify-content:flex-start" onclick="sendQuick(this.textContent)">What documents are needed for a home loan?</button>
+            <button class="quick-nav-btn" style="text-align:left;width:100%;justify-content:flex-start" onclick="sendQuick(this.textContent)">What is a good debt-to-income ratio in India?</button>
+          </div>
+        </div>
+
+        <!-- Tips Cards -->
+        <div class="glass-card" style="padding:1.5rem">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:#94a3b8"><i class="fa-solid fa-lightbulb"></i> Financial Quick Tips</h3>
+          <div style="display:flex;flex-direction:column;gap:.75rem" id="tips-carousel">
+            <div class="credit-tip">
+              <span class="credit-tip-icon">💡</span>
+              <span>Keep your credit utilisation below 30% of your total credit limit.</span>
+            </div>
+            <div class="credit-tip">
+              <span class="credit-tip-icon">📅</span>
+              <span>Set up auto-debit for loan EMIs — one missed payment can drop your score by 50–70 points.</span>
+            </div>
+            <div class="credit-tip">
+              <span class="credit-tip-icon">🏦</span>
+              <span>Compare at least 3 lenders before choosing — a 0.5% rate difference saves lakhs over long tenures.</span>
+            </div>
+            <div class="credit-tip">
+              <span class="credit-tip-icon">🔄</span>
+              <span>Refinancing a high-interest loan after your score improves can save significant interest.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Chat Window -->
+      <div>
+        <div class="ai-chat-wrap fade-in-up" style="min-height:600px;display:flex;flex-direction:column">
+          <!-- Header -->
+          <div class="ai-chat-header">
+            <div class="ai-avatar"><i class="fa-solid fa-robot"></i></div>
+            <div style="flex:1">
+              <div class="ai-chat-name">FinBot — AI Financial Advisor</div>
+              <div class="ai-chat-status"><span class="ai-dot"></span>Online · Powered by Claude AI</div>
+            </div>
+            <button class="btn btn-sm" style="background:rgba(255,77,109,.1);color:var(--clr-danger);padding:.4rem .9rem" onclick="clearChat()" title="Clear chat">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+
+          <!-- Messages -->
+          <div class="ai-messages" id="ai-messages" style="flex:1">
+            <!-- Welcome message -->
+            <div class="ai-message ai-msg-bot" id="welcome-msg">
+              <div class="ai-avatar" style="width:28px;height:28px;font-size:.75rem;flex-shrink:0"><i class="fa-solid fa-robot"></i></div>
+              <div class="ai-message-bubble">
+                👋 Hello! I'm <strong>FinBot</strong>, your AI-powered financial advisor.<br/><br/>
+                I can help you with:
+                <ul style="margin-top:.5rem;padding-left:1.2rem;line-height:1.9">
+                  <li>Loan eligibility questions</li>
+                  <li>Credit score improvement</li>
+                  <li>EMI planning and optimisation</li>
+                  <li>Financial tips and guidance</li>
+                </ul>
+                <br/>Ask me anything! 💬
+              </div>
+            </div>
+          </div>
+
+          <!-- Input -->
+          <div class="ai-input-row">
+            <input type="text" class="ai-input" id="userMessage"
+              placeholder="Ask me about loans, credit, EMI, financial planning..." 
+              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}" />
+            <button class="ai-send-btn" onclick="sendMessage()" id="send-btn" title="Send message">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Context Panel -->
+        <div class="glass-card" style="padding:1.5rem;margin-top:1.5rem">
+          <h3 style="font-size:.95rem;font-weight:700;margin-bottom:1rem;color:#94a3b8"><i class="fa-solid fa-sliders"></i> Provide Your Financial Context (Optional)</h3>
+          <p style="font-size:.85rem;color:#475569;margin-bottom:1.25rem;line-height:1.6">
+            Share your financial profile for more personalised AI recommendations.
+          </p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+            <div class="form-group">
+              <label class="form-label" for="ctx-salary">Monthly Salary (₹)</label>
+              <div class="input-group">
+                <span class="input-prefix">₹</span>
+                <input type="number" class="form-input" id="ctx-salary" placeholder="50,000" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ctx-score">Credit Score</label>
+              <input type="number" class="form-input" id="ctx-score" placeholder="750" min="300" max="900" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ctx-emi">Existing EMI (₹)</label>
+              <div class="input-group">
+                <span class="input-prefix">₹</span>
+                <input type="number" class="form-input" id="ctx-emi" placeholder="0" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ctx-goal">Goal</label>
+              <select class="form-select" id="ctx-goal">
+                <option value="">— Select —</option>
+                <option value="home loan">Get a Home Loan</option>
+                <option value="personal loan">Personal Loan</option>
+                <option value="credit improvement">Improve Credit</option>
+                <option value="debt management">Manage Debt</option>
+                <option value="investment">Start Investing</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" style="margin-top:1rem;width:100%;justify-content:center" onclick="sendWithContext()">
+            <i class="fa-solid fa-robot"></i> Ask AI with My Profile
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2025 LoanAI. Built with ❤️ and Claude AI.</span>
+      <div style="display:flex;gap:1.5rem">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="loan-eligibility.html" class="footer-link">Eligibility</a>
+        <a href="emi-calculator.html" class="footer-link">EMI Calculator</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar
+  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60));
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileNav').classList.toggle('open'));
+
+  // Responsive
+  function adjustGrid() {
+    document.getElementById('main-grid').style.gridTemplateColumns = window.innerWidth < 960 ? '1fr' : '1fr 1.6fr';
+  }
+  adjustGrid(); window.addEventListener('resize', adjustGrid);
+
+  // ── State
+  let conversationHistory = [];
+  let CLAUDE_API_KEY = localStorage.getItem('loanai_claude_key') || '';
+  let SHEETS_URL     = localStorage.getItem('loanai_sheets_url') || '';
+
+  // Pre-fill saved keys
+  if (CLAUDE_API_KEY) {
+    document.getElementById('apiKey').value = CLAUDE_API_KEY;
+    showApiStatus(true, 'API key loaded from storage.');
+  }
+  if (SHEETS_URL) document.getElementById('sheetsUrl').value = SHEETS_URL;
+
+  // ── API Key Management
+  function saveApiKey() {
+    const key = document.getElementById('apiKey').value.trim();
+    if (!key.startsWith('sk-ant-')) {
+      showApiStatus(false, 'Invalid key format. Should start with sk-ant-');
+      return;
+    }
+    CLAUDE_API_KEY = key;
+    window.CLAUDE_API_KEY = key;
+    localStorage.setItem('loanai_claude_key', key);
+    showApiStatus(true, 'API key saved! AI responses are now enabled.');
+  }
+
+  function saveSheetsUrl() {
+    const url = document.getElementById('sheetsUrl').value.trim();
+    if (!url.startsWith('https://')) { alert('Please enter a valid HTTPS URL.'); return; }
+    SHEETS_URL = url;
+    window.SHEETS_URL = url;
+    localStorage.setItem('loanai_sheets_url', url);
+    alert('Google Sheets URL saved successfully!');
+  }
+
+  function showApiStatus(success, msg) {
+    const el = document.getElementById('api-status');
+    el.style.display = 'flex';
+    el.className = `alert ${success ? 'alert-success' : 'alert-error'}`;
+    el.innerHTML = `<i class="fa-solid ${success ? 'fa-circle-check' : 'fa-circle-xmark'}"></i><span>${msg}</span>`;
+  }
+
+  // ── Chat Functions
+  async function sendMessage() {
+    const input = document.getElementById('userMessage');
+    const text  = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    await chat(text);
+  }
+
+  function sendQuick(text) {
+    document.getElementById('userMessage').value = text;
+    sendMessage();
+  }
+
+  async function sendWithContext() {
+    const salary = document.getElementById('ctx-salary').value;
+    const score  = document.getElementById('ctx-score').value;
+    const emi    = document.getElementById('ctx-emi').value;
+    const goal   = document.getElementById('ctx-goal').value;
+
+    if (!salary && !score && !goal) {
+      alert('Please fill in at least one field in the context panel.');
+      return;
+    }
+
+    let msg = 'Based on my financial profile: ';
+    if (salary) msg += `monthly salary ₹${parseInt(salary).toLocaleString('en-IN')}, `;
+    if (score)  msg += `credit score ${score}, `;
+    if (emi)    msg += `existing EMI ₹${parseInt(emi).toLocaleString('en-IN')}/month, `;
+    if (goal)   msg += `my goal is to ${goal}. `;
+    msg += 'What personalised advice do you have for me?';
+
+    await chat(msg);
+  }
+
+  async function chat(userText) {
+    // Disable send
+    const sendBtn = document.getElementById('send-btn');
+    sendBtn.disabled = true;
+
+    // Add user message
+    addMessage('user', userText);
+    conversationHistory.push({ role: 'user', content: userText });
+
+    // Typing indicator
+    const typingId = addTyping();
+
+    // Call Claude or fallback
+    let response;
+    if (CLAUDE_API_KEY) {
+      response = await callClaudeAPI(conversationHistory);
+    } else {
+      await new Promise(r => setTimeout(r, 1200 + Math.random() * 600));
+      response = getSmartFallback(userText);
+    }
+
+    // Remove typing, add response
+    removeTyping(typingId);
+    addMessage('bot', response);
+    conversationHistory.push({ role: 'assistant', content: response });
+
+    sendBtn.disabled = false;
+  }
+
+  async function callClaudeAPI(history) {
+    try {
+      const systemPrompt = `You are FinBot, an expert AI financial advisor specialising in Indian banking, loans, credit scores, and personal finance. 
+You provide clear, actionable, and personalised advice. 
+Key facts: Use Indian financial context (₹ currency, CIBIL scores 300-900, RBI regulations, typical Indian loan rates).
+Keep responses concise (3-5 sentences), practical, and friendly. Use bullet points for lists.
+Never ask for sensitive info like passwords or OTPs.`;
+
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'x-api-key': CLAUDE_API_KEY,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-opus-4-5',
+          max_tokens: 400,
+          system: systemPrompt,
+          messages: history.slice(-10) // last 10 messages for context
+        })
+      });
+      const data = await res.json();
+      return data.content?.[0]?.text || getSmartFallback(history[history.length-1]?.content || '');
+    } catch (err) {
+      return '⚠️ Connection issue. Please check your API key or internet connection. Here\'s a general tip: ' + getSmartFallback(history[history.length-1]?.content || '');
+    }
+  }
+
+  function getSmartFallback(question) {
+    const q = question.toLowerCase();
+
+    if (q.includes('credit score') && (q.includes('improve') || q.includes('increase') || q.includes('boost'))) {
+      return `Great question! Here are the fastest ways to improve your credit score:\n\n• **Pay all EMIs on time** — even one missed payment drops score by 50–70 points\n• **Keep credit card utilisation below 30%** of your limit\n• **Don't apply for multiple loans** simultaneously (hard inquiries hurt)\n• **Check your CIBIL report** for errors and dispute them\n• **Maintain a mix** of secured and unsecured credit\n\nWith consistent effort, expect a 50–100 point improvement in 6 months! 📈`;
+    }
+    if (q.includes('emi') && (q.includes('calculat') || q.includes('formula') || q.includes('work'))) {
+      return `EMI (Equated Monthly Instalment) uses the **reducing-balance formula**:\n\n**EMI = [P × R × (1+R)ᴺ] / [(1+R)ᴺ − 1]**\n\nWhere:\n• **P** = Principal amount\n• **R** = Monthly rate (Annual Rate ÷ 12 ÷ 100)\n• **N** = Tenure in months\n\nExample: ₹10L loan @ 10% for 5 years → EMI ≈ ₹21,247/month. Use our EMI Calculator for instant results! 🧮`;
+    }
+    if (q.includes('tenure') || q.includes('duration') || q.includes('period')) {
+      return `Choosing the right tenure is a balance:\n\n• **Shorter tenure** → Higher EMI, lower total interest (saves money)\n• **Longer tenure** → Lower EMI, higher total interest (easier cash flow)\n\n**Rule of thumb:** Keep EMI below 40% of your monthly take-home pay. For home loans, 15–20 years is common. For personal loans, 2–5 years is ideal to minimise interest burden. 🏠`;
+    }
+    if (q.includes('debt') || q.includes('existing emi') || q.includes('clear') || q.includes('repay')) {
+      return `Yes, clearing existing high-interest debt before taking new loans is generally smart!\n\n• It improves your **debt-to-income ratio** (lenders prefer < 40%)\n• **Higher credit score** after closing accounts\n• More **EMI headroom** for new loan eligibility\n\nHowever, if existing loans are low-interest (home loan < 9%), you might invest the surplus instead. Always compare rates! 💰`;
+    }
+    if (q.includes('home loan') || q.includes('house loan') || q.includes('mortgage')) {
+      return `Home loan tips for India:\n\n• **Eligibility:** Typically 60–65× monthly salary\n• **Current rates:** 8.5%–10.5% (floating), compare HDFC, SBI, ICICI\n• **Required documents:** Salary slips (3 months), ITR (2 years), bank statements, KYC\n• **Down payment:** Minimum 10–20% of property value\n• **Tax benefits:** ₹2L on interest (Sec 24b), ₹1.5L on principal (Sec 80C)\n\nA credit score above 750 gets you the best rates! 🏠`;
+    }
+    if (q.includes('document') || q.includes('papers') || q.includes('required')) {
+      return `Standard documents for loan applications:\n\n**Identity & Address:** Aadhaar, PAN, Passport/Voter ID\n**Income:** Last 3 months salary slips, 6 months bank statements, ITR (2 years)\n**Employment:** Appointment letter, offer letter, Form 16\n**Property (if home loan):** Sale agreement, property documents, NOC\n\nSelf-employed applicants also need: business registration, P&L statements, balance sheets. 📋`;
+    }
+    if (q.includes('debt-to-income') || q.includes('dti') || q.includes('ratio')) {
+      return `In India, a healthy **Debt-to-Income (DTI) ratio** for loan eligibility:\n\n• **Below 35%** — Excellent (easy loan approval)\n• **35–45%** — Acceptable (may face conditions)\n• **Above 50%** — Risk zone (most lenders will reject)\n\nFormula: (Total Monthly EMIs ÷ Gross Monthly Income) × 100\n\nTip: Banks also consider FOIR (Fixed Obligation to Income Ratio) — ideally keep it under 40%. 📊`;
+    }
+    if (q.includes('personal loan')) {
+      return `Personal loan key facts in India:\n\n• **Interest rates:** 10%–24% (higher risk = higher rate)\n• **Amount:** ₹50,000 to ₹40L typically\n• **Tenure:** 1–5 years (no collateral needed)\n• **Eligibility:** Credit score > 700, stable income, age 21–60\n\n⚠️ **Caution:** Use only for genuine needs (medical, education, home renovation). Avoid using for discretionary spending due to high interest. Compare lenders via BankBazaar or Paisabazaar! 💳`;
+    }
+
+    // Generic financial tips
+    const tips = [
+      `Here's a key financial insight for you: **Emergency Fund First!** Before taking any loans, ensure you have 3–6 months of expenses saved. This prevents you from defaulting on EMIs during job loss or medical emergencies, protecting your precious credit score. 🛡️`,
+      `**Smart loan strategy:** Always compare at least 3–4 lenders. Even a 0.5% interest rate difference on a ₹30L home loan over 20 years saves approximately ₹3–4 lakhs! Use comparison sites like BankBazaar or Paisabazaar to negotiate. 💡`,
+      `**Credit card tip:** If you're struggling with credit card debt, convert it to an EMI plan. Most banks offer 12–24 month conversions at 12–15% interest — much better than the 36–48% revolving credit rate! 💳`,
+      `**Investment vs loan payoff:** If your loan interest rate is above 10%, paying it off early is often better than investing in FDs (6–7%). But if below 9%, investing in equity mutual funds (potential 12–15% returns) might yield better long-term results. 📈`
+    ];
+    return tips[Math.floor(Math.random() * tips.length)];
+  }
+
+  // ── Message DOM helpers
+  function addMessage(role, text) {
+    const container = document.getElementById('ai-messages');
+    const div = document.createElement('div');
+    div.className = `ai-message ai-msg-${role === 'user' ? 'user' : 'bot'}`;
+
+    const avatarHtml = role === 'bot'
+      ? `<div class="ai-avatar" style="width:28px;height:28px;font-size:.75rem;flex-shrink:0"><i class="fa-solid fa-robot"></i></div>`
+      : `<div style="width:28px;height:28px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;border:1px solid var(--clr-border)"><i class="fa-solid fa-user"></i></div>`;
+
+    // Convert markdown-like syntax to HTML
+    const formatted = text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n\n/g, '<br/><br/>')
+      .replace(/\n/g, '<br/>')
+      .replace(/• /g, '&bull; ');
+
+    div.innerHTML = `${role === 'bot' ? avatarHtml : ''}
+      <div class="ai-message-bubble">${formatted}</div>
+      ${role === 'user' ? avatarHtml : ''}`;
+
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  function addTyping() {
+    const container = document.getElementById('ai-messages');
+    const id = 'typing-' + Date.now();
+    const div = document.createElement('div');
+    div.className = 'ai-message ai-msg-bot';
+    div.id = id;
+    div.innerHTML = `
+      <div class="ai-avatar" style="width:28px;height:28px;font-size:.75rem;flex-shrink:0"><i class="fa-solid fa-robot"></i></div>
+      <div class="typing-indicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+    return id;
+  }
+
+  function removeTyping(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  function clearChat() {
+    if (!confirm('Clear all chat messages?')) return;
+    const container = document.getElementById('ai-messages');
+    container.innerHTML = '';
+    conversationHistory = [];
+    // Re-add welcome
+    addMessage('bot', '👋 Chat cleared! How can I help you with your financial questions? Feel free to ask about loans, credit scores, EMI planning, or anything finance-related!');
+  }
+</script>
+</body>
+</html>
