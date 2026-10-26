@@ -8,6 +8,15 @@
 
 ---
 
+## 📄 Submission Documents
+
+- **Final Capstone Report (PDF):** [Open or download the complete report](docs/LoanAI_Capstone_Report.pdf)
+- **Main Financial Logic:** [js/script.js](js/script.js)
+- **Google Sheets Backend:** [google-apps-script/Code.gs](google-apps-script/Code.gs)
+- **Project Owner:** Chetana Bonde
+
+---
+
 ## 🚀 Features
 
 | Module | Description |
